@@ -34,6 +34,8 @@ public class EnigmaMacine
         //decryption will have settings
         //encryptions will strictly be a message (no parsing for encryption needed)
         String junk;
+        Machine enigmaMachine = new Machine();
+            //TODO: put parameters into contructor
         if (type == 0)
         {
             //encryption
@@ -41,8 +43,8 @@ public class EnigmaMacine
             String encryption;
             junk = input.nextLine(); //picks up end line output on last line
             encryption = input.nextLine();
-            System.out.println(encryption);
-            //parse encryption
+            System.out.println(encryption);  //for debugging
+            //enigmaMachine.encipher(encryption);
         }
         else
         {
@@ -50,17 +52,26 @@ public class EnigmaMacine
             System.out.println("What code do you want decrypted?");
             junk = input.nextLine();
             String decryption = input.nextLine();
-            String[] settings = new String [5];
+            String[] settings = new String [7];
             settings = parseDecryption(decryption);
-            System.out.println(decryption);
-        }
-		
-
+            System.out.println(decryption);  //for debugging
+            //enigmaMachine.decipher(settings);
+        }		
 	}
 	
+
+    /*
+     *
+     * Reflector, WheelSetting, Ring Setting, Start Position, Wheel Order,
+     * message settings, Message
+     */
 	public static String[] parseDecryption (String decryption)
 	{
-		String [] args = new String [5];
+        String deliminator = "[,]+";  //deliminator is a comma (for now)
+        String[] args = decryption.split(deliminator);
+        System.out.println(args.length);  //for debugging purposes
+
+
 		return args;
 	}
 	
