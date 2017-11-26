@@ -11,7 +11,7 @@ public class EnigmaMacine
 		String encryption = input.nextLine();
 		
 		String [] settings = new String [5];
-			settings = parse (encryption);
+		settings = parse (encryption);
 		
 
 	}
