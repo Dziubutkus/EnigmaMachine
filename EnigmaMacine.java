@@ -39,12 +39,16 @@ public class EnigmaMacine
         if (type == 0)
         {
             //encryption
-            System.out.println("What message to you want to encrypt?");
+			System.out.println("Which rotors do you want to use? (Input 3 Numbers with no spaces inbetween)");
+			String rotorNum = next();
+			System.out.println("What reflector do you want to use?");
+            char reflectorType = input.next().charAt(0);
+			System.out.println("What message to you want to encrypt?");
             String encryption;
             junk = input.nextLine(); //picks up end line output on last line
-            encryption = input.nextLine();
+            encryption = input.nextLine().toUpperCase();
             System.out.println(encryption);  //for debugging
-            //enigmaMachine.encipher(encryption);
+            enigmaMachine.encrypt(reflectorType, rotorNum, encryption);
         }
         else
         {
@@ -55,7 +59,7 @@ public class EnigmaMacine
             String[] settings = new String [7];
             settings = parseDecryption(decryption);
             System.out.println(decryption);  //for debugging
-            //enigmaMachine.decipher(settings);
+            enigmaMachine.decrypt(settings);
         }		
 	}
 	
