@@ -1,7 +1,7 @@
 
 public class Machine
-{
-	private int []rotSetting=new int[3]; //rotor settings, start positions
+  
+{private int []rotSetting=new int[3]; //rotor settings, start positions
 	private int []rotNum=new int[3]; //rotor numbers 1-5
 	private char codeType; //encrypt or decrypt
 	private String message;
@@ -40,7 +40,7 @@ public class Machine
 		Rotor rotor1=new Rotor(rotSetting[0],rotor1Num);
 		Rotor rotor2=new Rotor(rotSetting[1],rotor2Num);
 		Rotor rotor3=new Rotor(rotSetting[2],rotor3Num);
-		Relflector reflector=new Reflector(reflectorType);
+		Relflector reflector=new Reflector(reflectorType)
 		
 		int messLength=message.length ( ); //gets length of message
 		int letterNum;
@@ -49,7 +49,7 @@ public class Machine
 		int charCount=0;
 		
 		while(charCount<=messLength)
-		{
+		
 			for (int i=0;i<messLength-1;i++)
 			{
 				letterNum = (int)letter;

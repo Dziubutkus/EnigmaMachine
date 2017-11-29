@@ -30,6 +30,10 @@ public class EnigmaMacine
 		    }
 		} while (loopCheck == 'n');
 		
+		String [] settings = new String [5];
+		settings = parse (encryption);
+		
+
         //encryption and decryption will be inputted differently
         //decryption will have settings
         //encryptions will strictly be a message (no parsing for encryption needed)
@@ -61,9 +65,8 @@ public class EnigmaMacine
             System.out.println(decryption);  //for debugging
             enigmaMachine.decrypt(settings);
         }		
-	}
+}
 	
-
     /*
      *
      * Reflector, WheelSetting, Ring Setting, Start Position, Wheel Order,
