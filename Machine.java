@@ -1,87 +1,138 @@
 
 public class Machine
-{
-	private int[] rotorSetting = new int[3]; // Rotor settings
-	// private int[] rotorType = new int[3]; // Rotor type from 1 to 5
-	// ringSettings ???
-	// messageSettings ???
-	private String message; // Message  that needs to be encrypted
-	private char code; // Encrypt or Decrypt
+  
+{private int []rotSetting=new int[3]; //rotor settings, start positions
+	private int []rotNum=new int[3]; //rotor numbers 1-5
+	private char codeType; //encrypt or decrypt
+	private String message;
 	
-	// Constructor
+	//Constructors
+	public Machine(int[ ] rotSetting, int[ ] rotNum, String message, char codeType)
+	{
+		this.rotSetting = rotSetting;
+		this.rotNum = rotNum;
+		this.message = message;
+		this.codeType = codeType;
+	}
+	
 	public Machine()
 	{
-		for(int i = 0; i < 3; i++)
+		for(int i =0; i<3;i++)
 		{
-			this.rotorSetting[i] = 0;
-			//this.rotorType[i] = 0;
+			this.rotSetting[i]=-1;
+			this.rotNum[i]=-1;
 		}
-		// this.ringSettings;
-		// this.messageSettings;
-		this.message = "empty";
-		this.code = ' ';
-	}
-
-	public Machine(int[] rotorSetting, String message, char code) {
-		super();
-		this.rotorSetting = rotorSetting;
-		// this.rotorType = rotorType;
-		// this.ringSettings = ringSettings;
-		// this.messageSettings = messageSettings;
-		this.message = message;
-		this.code = code;
+		this.message= "nothing";
+		this.codeType='?';
 	}
 	
-	/*
-	 * encrypt()
-	 * @params
-	 * @return message
-	 * Return encrypted message
-	 */
-	public String encrypt()
+	public String encrypt(char reflectorType, String rotorNum, String encryptionMessage)
 	{
-		// Initialize rotors
-		Rotors rotor1 = new Rotors(rotorSetting[0], 1/*, startNumber??, rotorSettings?? */);
-		Rotors rotor2 = new Rotors(rotorSetting[1], 2);
-		Rotors rotor3 = new Rotors(rotorSetting[2], 3);
+		int rotor1Num=(int)rotorNum.charAt(0);
+		int rotor2Num=(int)rotorNum.charAt(1);
+		int rotor3Num=(int)rotorNum.charAt(2);
 		
-		// Shift letters
-		int messageLength = message.length(); // Get the length of the message
-		int letter; // ASCII value of the letter
-		for(int i = 0; i < messageLength - 1; i++)
+		for (int i=0;i<3;i++)
 		{
-			letter = (int)message[i]; // Change the letter to ASCII value
-			letter = rotor1.changeLetter(letter);
-			letter = rotor2.changeLetter(letter);
-			letter = rotor3.changeLetter(letter);
-			// letter = reflector(letter);
-			letter = rotor3.changeLetter(letter);
-			letter = rotor2.changeLetter(letter);
-			letter = rotor1.changeLetter(letter);
+			rotSetting[i]=(int)(Math.random()*26);
 		}
-		char charLetter = (char)letter; // Change ASCII value(int) to char
-		// Append charLetter to new message
-		return message; // Return encrypted message
+		
+		Rotor rotor1=new Rotor(rotSetting[0],rotor1Num);
+		Rotor rotor2=new Rotor(rotSetting[1],rotor2Num);
+		Rotor rotor3=new Rotor(rotSetting[2],rotor3Num);
+		Relflector reflector=new Reflector(reflectorType)
+		
+		int messLength=message.length ( ); //gets length of message
+		int letterNum;
+		char letter;
+		String encryptMess;
+		int charCount=0;
+		
+		while(charCount<=messLength)
+		
+			for (int i=0;i<messLength-1;i++)
+			{
+				letterNum = (int)letter;
+				letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
+				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor3);
+				letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2);
+				//letterNum=relflector.changeLetter(letterNum);
+				letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2);
+				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor3);
+				letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
+			}
+			letter=(char)letterNum;
+			encryptMess=encryptMess+letter;
+		}
+		String rotorNumbers; //rotor number settings
+		String rotorSettings; //rotor starting settings
+		for (int r=0;r<3;r++)
+		{
+			char number=(char)rotNum[r];
+			rotorNumbers+=number;
+			char setting=(char)rotSetting[r];
+			rotorSettings+=setting;
+		}
+		encryptMess=rotorNumbers +" "+rotorSettings+" "+encryptMess;
+		return encryptMess;
 	}
 	
+	public String decrypt(char reflectorType, String rotorNum,String decryptMess)
+	{
+		int rotor1Num=(int)rotorNum.charAt(0);
+		int rotor2Num=(int)rotorNum.charAt(1);
+		int rotor3Num=(int)rotorNum.charAt(2);
+		
+		
+		Rotor rotor1=new Rotor(rotSetting[0],rotor1Num);
+		Rotor rotor2=new Rotor(rotSetting[1],rotor2Num);
+		Rotor rotor3=new Rotor(rotSetting[2],rotor3Num);
+		Relflector reflector=new Reflector(reflectorType);
+		
+		int messLength=message.length ( ); //gets length of message
+		int letterNum;
+		char letter;
+		int charCount=0;
+		
+		while(charCount<=messLength)
+		{
+			for (int i=0;i<messLength-1;i++)
+			{
+				letterNum = (int)letter;
+				letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
+				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor3);
+				letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2);
+				//letterNum=relflector.changeLetter(letterNum);
+				letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2);
+				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor3);
+				letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
+			}
+			letter=(char)letterNum;
+			decryptMess=decryptMess+letter;
+		}
+
+		return decryptMess;
+	}
 	
-	// Getters and Setters
-	public int[] getRotorSetting() {
-		return rotorSetting;
+	//Getters and Setters
+	public int[ ] getRotSetting( )
+	{
+		return rotSetting;
 	}
 
-	public void setRotorSetting(int[] rotorSetting) {
-		this.rotorSetting = rotorSetting;
+	public void setRotSetting( int[ ] rotSetting )
+	{
+		this.rotSetting = rotSetting;
 	}
 
-	public char getCode() {
-		return code;
+	public char getCodeType( )
+	{
+		return codeType;
 	}
 
-	public void setCode(char code) {
-		this.code = code;
+	public void setCodeType( char codeType )
+	{
+		this.codeType = codeType;
 	}
-	
-	
 	
 }
