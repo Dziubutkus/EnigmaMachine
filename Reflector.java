@@ -3,7 +3,7 @@
 * The reflector makes it so that the sequence that came from the first
 * three rotors doesn't translate back to the message
 */
-public class Reflector ()
+public class Reflector
 {
 	//member variables
 	private char type;  //Will be either B or C
