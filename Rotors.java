@@ -1,7 +1,12 @@
 
 public class Rotors {
-	private int rotorSetting;
-	private int rotorNumber;
+
+	private int rotorNum;//rotor identification
+	private int roterStartNum;//starting position
+	private int roterSettings;//settings for rotor starting position 
+	private int shiftCount = 0;
+	private int startNumber = 0;
+	
 	
 	// Constructor
 	public Rotors()
@@ -21,28 +26,22 @@ public class Rotors {
 		return letter;
 	}
 	
-	/*
-	 *  I think shift and changeLetter should be in machine class
-	 */
-	public void shift()
+	static void shift ()
 	{
+		
 		if(rotorNumber == 1)
 		{
-			rotorSetting += 1;
-			if(rotorSetting > 26)
+			rotorSettings++;
+			startNumber++;
+			if (startNumber >= 26)
 			{
-				rotorSetting = 1;
-				// Set rotor2 setting + 1 and check rotor3 setting
-			}
-		}
-		else if(rotorNumber == 2)
-		{
-			
-		}
-		else if(rotorNumber == 3)
-		{
-			
-		}
+				rotor2.setSetting(rotor2.getSetting()+1);
+				if (rotor2.getStartNumber() >= 26 )
+				{
+					rotor3.setSetting(rotor3.getSetting()+1);
+				}
+			}	
+		}	
 	}
 	
 	// Getters and Setters
