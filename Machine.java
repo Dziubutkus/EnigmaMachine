@@ -57,12 +57,12 @@ public class Machine
 		int messLength=message.length ( ); //gets length of message
 		int letterNum = -1; //set to -1 for initialization (should be okay??)
 		char letter = ' ';
-		String encryptMess = null;
+		String encryptMess = " ";
 		int charCount=0;
 		
-		while(charCount<=messLength)
-		{
-			for (int i=0;i<messLength-1;i++)
+		//while(charCount<=messLength) //CS:Don't think we need while loop (I think it adds extra character we don't need)
+		//{
+			for (int i=0;i<messLength;i++)
 			{
 				letterNum=(int)message.charAt(i);
 				letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
@@ -72,12 +72,13 @@ public class Machine
 				letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2);
 				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor3);
 				letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
+				
+				letter=(char)letterNum;
+				System.out.println("letter: "+ letter); //CS: DEBUG
+				encryptMess=encryptMess+letter;
 			}
-			letter=(char)letterNum;
-			System.out.println("letter: "+ letter);
-			encryptMess=encryptMess+letter;
-			charCount++;  //CS: I think we forgot to increment the charCount
-		}
+			//charCount++;  //CS: I think we forgot to increment the charCount
+		//}
 
 		//It think this is basically formatting for output.
 		String rotorNumbers = null; //rotor number settings

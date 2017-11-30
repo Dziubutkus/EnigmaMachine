@@ -23,12 +23,10 @@ public class Reflector
 	{
 		if (type == 'B')
 		{
-					//ABCDEFGHIJKLM
 			wheelLettering = "YRUQSPXNOZWVT";
 		}
 		else if (type == 'C')
 		{
-			                //ABCDEFGHIJKLM
 			wheelLettering = "VPOYRZXWTUQSN";
 		}
 		else
@@ -40,13 +38,14 @@ public class Reflector
 	//member methods
 	public int changeLetter(int letter) // ASCII A = 65, Z = 90
 	{
+		System.out.println(letter);
 		int reflectedLetter = ' ';
 		
-		if (letter-65 <= 13) //first half of alphabet
+		if (letter-65 < 13) //first half of alphabet
 		{
 			reflectedLetter = wheelLettering.charAt(letter-65);
 		}
-		else if (letter-65 > 13) //second half of alphabet
+		else if (letter-65 >= 13) //second half of alphabet
 		{
 			reflectedLetter = 65 + wheelLettering.charAt(indexLetter(letter-65));
 		}
@@ -59,9 +58,13 @@ public class Reflector
 		int index = 0;
 		while (index < 13 && !found)
 		{
-			if ((char)letter == wheelLettering.charAt(index))
+			if (letter == ((int)wheelLettering.charAt(index)-65))
 			{
 				found = true;
+			}
+			if (!found)
+			{
+				index++;
 			}
 		}
 		return index;
