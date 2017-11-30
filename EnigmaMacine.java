@@ -1,4 +1,4 @@
-package EnigmaMachine;
+//package EnigmaMachine;
 import java.util.Scanner;
 
 public class EnigmaMacine
@@ -36,7 +36,6 @@ public class EnigmaMacine
         //decryption will have settings
         //encryptions will strictly be a message (no parsing for encryption needed)
         String junk;
-        Machine enigmaMachine = new Machine();
             //TODO: put parameters into contructor
         if (type == 0)
         {
@@ -49,8 +48,9 @@ public class EnigmaMacine
             String encryption;
             junk = input.nextLine(); //picks up end line output on last line
             encryption = input.nextLine().toUpperCase();
-            System.out.println(encryption);  //for debugging
-            enigmaMachine.encrypt(reflectorType, rotorNum, encryption);
+            //System.out.println(encryption);  //for debugging
+            Machine enigmaMachine = new Machine(reflectorType, rotorNum, encryption);
+            enigmaMachine.encrypt();
         }
         /*else
         {
@@ -63,7 +63,7 @@ public class EnigmaMacine
             System.out.println(decryption);  //for debugging
             enigmaMachine.decrypt(settings);
         }*/		
-}
+    }
 	
     /*
      *
