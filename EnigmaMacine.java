@@ -1,3 +1,4 @@
+package EnigmaMachine;
 import java.util.Scanner;
 
 public class EnigmaMacine
@@ -30,9 +31,6 @@ public class EnigmaMacine
 		    }
 		} while (loopCheck == 'n');
 		
-		String [] settings = new String [5];
-		settings = parse (encryption);
-		
 
         //encryption and decryption will be inputted differently
         //decryption will have settings
@@ -44,7 +42,7 @@ public class EnigmaMacine
         {
             //encryption
 			System.out.println("Which rotors do you want to use? (Input 3 Numbers with no spaces inbetween)");
-			String rotorNum = next();
+			String rotorNum = input.next();
 			System.out.println("What reflector do you want to use?");
             char reflectorType = input.next().charAt(0);
 			System.out.println("What message to you want to encrypt?");
@@ -54,7 +52,7 @@ public class EnigmaMacine
             System.out.println(encryption);  //for debugging
             enigmaMachine.encrypt(reflectorType, rotorNum, encryption);
         }
-        else
+        /*else
         {
             //decryption
             System.out.println("What code do you want decrypted?");
@@ -64,7 +62,7 @@ public class EnigmaMacine
             settings = parseDecryption(decryption);
             System.out.println(decryption);  //for debugging
             enigmaMachine.decrypt(settings);
-        }		
+        }*/		
 }
 	
     /*

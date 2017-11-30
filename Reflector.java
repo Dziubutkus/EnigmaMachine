@@ -1,3 +1,5 @@
+package EnigmaMachine;
+
 /*
 * A reflector is basically a rotor that doesn't move.
 * The reflector makes it so that the sequence that came from the first
@@ -19,12 +21,12 @@ public class Reflector
 	//We will have two different reflectors to choose from (B or C)
 	Reflector(char type)
 	{
-		if (type == B)
+		if (type == 'B')
 		{
-							//ABCDEFGHIJKLM
+					//ABCDEFGHIJKLM
 			wheelLettering = "YRUQSPXNOZWVT";
 		}
-		else if (type == C)
+		else if (type == 'C')
 		{
 			                //ABCDEFGHIJKLM
 			wheelLettering = "VPOYRZXWTUQSN";
@@ -38,15 +40,15 @@ public class Reflector
 	//member methods
 	public int changeLetter(int letter) // ASCII A = 65, Z = 90
 	{
-		int reflectedLetter;
+		int reflectedLetter = ' ';
 		
 		if (letter <= 13) //first half of alphabet
 		{
-			reflectedLetter = wheelLettering(letter);
+			reflectedLetter = wheelLettering.charAt(letter);
 		}
 		else if (letter > 13) //second half of alphabet
 		{
-			reflectedLetter = 65 + wheelLettering(indexLetter(letter));
+			reflectedLetter = 65 + wheelLettering.charAt(indexLetter(letter));
 		}
 		return reflectedLetter;
 	}
@@ -57,7 +59,7 @@ public class Reflector
 		int index = 0;
 		while (index < 13 && !found)
 		{
-			if ((char)letter == wheelLettering(index))
+			if ((char)letter == wheelLettering.charAt(index))
 			{
 				found = true;
 			}

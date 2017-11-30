@@ -1,3 +1,4 @@
+package EnigmaMachine;
 
 public class Machine
 {
@@ -5,6 +6,7 @@ public class Machine
 	private int []rotNum=new int[3]; //rotor numbers 1-5
 	private char codeType; //encrypt or decrypt
 	private String message;
+	private Reflector reflector1;
 	
 	//Constructors
 	public Machine(int[ ] rotSetting, int[ ] rotNum, String message, char codeType)
@@ -28,19 +30,19 @@ public class Machine
 	
 	public String encrypt(char reflectorType, String rotorNum, String encryptionMessage)
 	{
-		int rotor1Num=(int)rotorNum.charAt(0);
-		int rotor2Num=(int)rotorNum.charAt(1);
-		int rotor3Num=(int)rotorNum.charAt(2);
+		int rotor1Num = (int)rotorNum.charAt(0);
+		int rotor2Num = (int)rotorNum.charAt(1);
+		int rotor3Num = (int)rotorNum.charAt(2);
 		
 		for (int i=0;i<3;i++)
 		{
 			rotSetting[i]=(int)(Math.random()*26);
 		}
 		
-		Rotor rotor1=new Rotor(rotSetting[0],rotor1Num);
-		Rotor rotor2=new Rotor(rotSetting[1],rotor2Num);
-		Rotor rotor3=new Rotor(rotSetting[2],rotor3Num);
-		Relflector reflector=new Reflector(reflectorType);
+		Rotor rotor1 = new Rotor(rotSetting[0],rotor1Num);
+		Rotor rotor2 = new Rotor(rotSetting[1],rotor2Num);
+		Rotor rotor3 = new Rotor(rotSetting[2],rotor3Num);
+		Reflector reflector = new Reflector(reflectorType);
 		
 		int messLength=message.length ( ); //gets length of message
 		int letterNum;
@@ -52,11 +54,11 @@ public class Machine
 		{
 			for (int i=0;i<messLength-1;i++)
 			{
-				letterNum = (int)letter;
+				//letterNum = (int)letter;
 				letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
 				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor3);
 				letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2);
-				//letterNum=relflector.changeLetter(letterNum);
+				letterNum=reflector.changeLetter(letterNum);
 				letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2);
 				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor3);
 				letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
@@ -77,17 +79,17 @@ public class Machine
 		return encryptMess;
 	}
 	
-	public String decrypt(char reflectorType, String rotorNum,String decryptMess)
+	public String decrypt(char reflectorType, String rotorNum, String decryptMess)
 	{
 		int rotor1Num=(int)rotorNum.charAt(0);
 		int rotor2Num=(int)rotorNum.charAt(1);
 		int rotor3Num=(int)rotorNum.charAt(2);
 		
 		
-		Rotor rotor1=new Rotor(rotSetting[0],rotor1Num);
-		Rotor rotor2=new Rotor(rotSetting[1],rotor2Num);
-		Rotor rotor3=new Rotor(rotSetting[2],rotor3Num);
-		Relflector reflector=new Reflector(reflectorType);
+		Rotor rotor1 = new Rotor(rotSetting[0],rotor1Num);
+		Rotor rotor2 = new Rotor(rotSetting[1],rotor2Num);
+		Rotor rotor3 = new Rotor(rotSetting[2],rotor3Num);
+		Reflector reflector = new Reflector(reflectorType);
 		
 		int messLength=message.length ( ); //gets length of message
 		int letterNum;
@@ -102,7 +104,7 @@ public class Machine
 				letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
 				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor3);
 				letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2);
-				//letterNum=relflector.changeLetter(letterNum);
+				letterNum=reflector.changeLetter(letterNum);
 				letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2);
 				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor3);
 				letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
