@@ -50,7 +50,7 @@ public class EnigmaMacine
             encryption = input.nextLine().toUpperCase();
             //System.out.println(encryption);  //for debugging
             Machine enigmaMachine = new Machine(reflectorType, rotorNum, encryption);
-            enigmaMachine.encrypt();
+            System.out.println(enigmaMachine.encrypt());  //should return encrypted message
         }
         /*else
         {

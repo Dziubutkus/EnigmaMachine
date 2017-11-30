@@ -42,13 +42,13 @@ public class Reflector
 	{
 		int reflectedLetter = ' ';
 		
-		if (letter <= 13) //first half of alphabet
+		if (letter-65 <= 13) //first half of alphabet
 		{
-			reflectedLetter = wheelLettering.charAt(letter);
+			reflectedLetter = wheelLettering.charAt(letter-65);
 		}
-		else if (letter > 13) //second half of alphabet
+		else if (letter-65 > 13) //second half of alphabet
 		{
-			reflectedLetter = 65 + wheelLettering.charAt(indexLetter(letter));
+			reflectedLetter = 65 + wheelLettering.charAt(indexLetter(letter-65));
 		}
 		return reflectedLetter;
 	}

@@ -60,14 +60,11 @@ public class Machine
 		String encryptMess = null;
 		int charCount=0;
 		
-		int count = 0; //CS: DEBUG
 		while(charCount<=messLength)
 		{
 			for (int i=0;i<messLength-1;i++)
 			{
-				System.out.println(count);  //CS: DEBUG
-
-				letterNum = (int)message.charAt(i);
+				letterNum=(int)message.charAt(i);
 				letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
 				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor3);
 				letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2);
@@ -77,8 +74,9 @@ public class Machine
 				letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
 			}
 			letter=(char)letterNum;
+			System.out.println("letter: "+ letter);
 			encryptMess=encryptMess+letter;
-			count++; //CS:DEBUG
+			charCount++;  //CS: I think we forgot to increment the charCount
 		}
 
 		//It think this is basically formatting for output.
@@ -91,7 +89,7 @@ public class Machine
 			char setting=(char)rotSetting[r];
 			rotorSettings+=setting;
 		}
-		encryptMess=rotorNumbers +" "+rotorSettings+" "+encryptMess;
+		//encryptMess=rotorNumbers +" "+rotorSettings+" "+encryptMess;
 		return encryptMess;
 	}
 	
