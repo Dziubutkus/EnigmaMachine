@@ -116,7 +116,8 @@ public class Machine
 	}
 
 	//CS: Makes sure letter is between 65 and 90
-	private int validateNumber(int letter)
+	//I'm pretty sure that we need to validate that the number is between 65 and 90 (due to it being a wheel)
+	/*private int validateNumber(int letter)
 	{
 		if (letter <= 0)
 		{
@@ -130,7 +131,7 @@ public class Machine
 		{
 			letter = letter;
 		}
-	}
+	}*/
 	
 	public String decrypt()
 	{
