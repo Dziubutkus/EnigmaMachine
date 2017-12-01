@@ -13,6 +13,7 @@ public class Machine
 	int rotor1Num;
 	int rotor2Num;
 	int rotor3Num;
+	char reflectorType;
 	
 	//Constructors (We should have overloaded constructors--I think)
 	//This one will be for encryption
@@ -30,10 +31,30 @@ public class Machine
 		rotor1Num = (int)rotorNum.charAt(0);
 		rotor2Num = (int)rotorNum.charAt(1);
 		rotor3Num = (int)rotorNum.charAt(2);
+			//rotSetting will be overwritten in encrypt method
+		rotor1 = new Rotor(rotSetting[0],rotor1Num);
+		rotor2 = new Rotor(rotSetting[1],rotor2Num); 
+		rotor3 = new Rotor(rotSetting[2],rotor3Num);
+		this.reflectorType = reflectorType;
+		message = encryptionMessage;
+	}
+	//Decryption Constructor
+	//Reflector, rotor Numbers, rotor settings, Decryption message
+	public Machine(String reflectorType, String rotorNum, String rotorSettings, String decryptionMessage)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			rotSetting[i] = (int)rotorSettings.charAt(i);
+		}
+		//char reflectorType, String rotorNum, String encryptionMessage, int[] rotSetting
+		reflector = new Reflector(reflectorType.charAt(0));
+		rotor1Num = (int)rotorNum.charAt(0);
+		rotor2Num = (int)rotorNum.charAt(1);
+		rotor3Num = (int)rotorNum.charAt(2);
 		rotor1 = new Rotor(rotSetting[0],rotor1Num);
 		rotor2 = new Rotor(rotSetting[1],rotor2Num);
 		rotor3 = new Rotor(rotSetting[2],rotor3Num);
-		message = encryptionMessage;
+		message = decryptionMessage;
 	}
 	public Machine()
 	{
@@ -74,62 +95,70 @@ public class Machine
 				letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
 				
 				letter=(char)letterNum;
-				System.out.println("letter: "+ letter); //CS: DEBUG
 				encryptMess=encryptMess+letter;
 			}
 			//charCount++;  //CS: I think we forgot to increment the charCount
 		//}
 
 		//It think this is basically formatting for output.
-		String rotorNumbers = null; //rotor number settings
-		String rotorSettings = null; //rotor starting settings
+		//String rotorNumbers = null; //rotor number settings
+		String rotorSettings = " "; //rotor starting settings
 		for (int r=0;r<3;r++)
 		{
-			char number=(char)rotNum[r];
-			rotorNumbers+=number;
-			char setting=(char)rotSetting[r];
+			//char number=(char)rotNum[r];
+			//rotorNumbers+=number;
+			char setting=(char)(rotSetting[r]+65);
 			rotorSettings+=setting;
 		}
 		//encryptMess=rotorNumbers +" "+rotorSettings+" "+encryptMess;
+		encryptMess=reflectorType+" "+rotorSettings+" "+encryptMess;
 		return encryptMess;
 	}
-	
-	// public String decrypt(char reflectorType, String rotorNum, String decryptMess)
-	// {
-	// 	int rotor1Num=(int)rotorNum.charAt(0);
-	// 	int rotor2Num=(int)rotorNum.charAt(1);
-	// 	int rotor3Num=(int)rotorNum.charAt(2);
-		
-		
-	// 	Rotor rotor1 = new Rotor(rotSetting[0],rotor1Num);
-	// 	Rotor rotor2 = new Rotor(rotSetting[1],rotor2Num);
-	// 	Rotor rotor3 = new Rotor(rotSetting[2],rotor3Num);
-	// 	Reflector reflector = new Reflector(reflectorType);
-		
-	// 	int messLength=message.length ( ); //gets length of message
-	// 	int letterNum;
-	// 	char letter;
-	// 	int charCount=0;
-		
-	// 	while(charCount<=messLength)
-	// 	{
-	// 		for (int i=0;i<messLength-1;i++)
-	// 		{
-	// 			letterNum = (int)letter;
-	// 			letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
-	// 			letterNum=rotor2.changeLetter(letterNum,rotor1,rotor3);
-	// 			letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2);
-	// 			letterNum=reflector.changeLetter(letterNum);
-	// 			letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2);
-	// 			letterNum=rotor2.changeLetter(letterNum,rotor1,rotor3);
-	// 			letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
-	// 		}
-	// 		letter=(char)letterNum;
-	// 		decryptMess=decryptMess+letter;
-	// 	}
 
-	// 	return decryptMess;
-	// }
+	//CS: Makes sure letter is between 65 and 90
+	private int validateNumber(int letter)
+	{
+		if (letter <= 0)
+		{
+
+		}
+		else if (letter n >=27)
+		{
+
+		}
+		else
+		{
+			letter = letter;
+		}
+	}
+	
+	public String decrypt()
+	{
+		int messLength=message.length ( ); //gets length of message
+		int letterNum = -1; //set to -1 for initialization (should be okay??)
+		char letter = ' ';
+		String decryptMess = " ";
+		//int charCount=0;
+		
+		//while(charCount<=messLength)
+		//{
+			for (int i=0;i<messLength-1;i++)
+			{
+				letterNum = (int)letter;
+				letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
+				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor3);
+				letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2);
+				letterNum=reflector.changeLetter(letterNum);
+				letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2);
+				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor3);
+				letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
+			}
+			letter=(char)letterNum;
+			decryptMess=decryptMess+letter;
+		//}
+
+		return decryptMess;
+	}
 	
 	//Getters and Setters
 	public int[ ] getRotSetting( )

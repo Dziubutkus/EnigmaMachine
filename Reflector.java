@@ -38,11 +38,11 @@ public class Reflector
 	//member methods
 	public int changeLetter(int letter) // ASCII A = 65, Z = 90
 	{
-		System.out.println(letter);
 		int reflectedLetter = ' ';
 		
 		if (letter-65 < 13) //first half of alphabet
 		{
+			System.out.println("In Reflector: " + letter);
 			reflectedLetter = wheelLettering.charAt(letter-65);
 		}
 		else if (letter-65 >= 13) //second half of alphabet
@@ -69,7 +69,5 @@ public class Reflector
 		}
 		return index;
 	}
-	
-	//getters and setters
-	
+		
 }

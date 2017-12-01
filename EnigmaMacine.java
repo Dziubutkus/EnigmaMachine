@@ -48,22 +48,23 @@ public class EnigmaMacine
             String encryption;
             junk = input.nextLine(); //picks up end line output on last line
             encryption = input.nextLine().toUpperCase();
-            //System.out.println(encryption);  //for debugging
+            //System.out.println(encryption);  //CS: DEBUGGING
             Machine enigmaMachine = new Machine(reflectorType, rotorNum, encryption);
             System.out.println(enigmaMachine.encrypt());  //should return encrypted message
         }
 
-        /*else
+        else
         {
             //decryption
             System.out.println("What code do you want decrypted?");
             junk = input.nextLine();
             String decryption = input.nextLine();
-            String[] settings = new String [7];
+            String[] settings = new String [4];
             settings = parseDecryption(decryption);
             System.out.println(decryption);  //for debugging
-            enigmaMachine.decrypt(settings);
-        }*/		
+            Machine enigmaMachine = new Machine(settings[0], settings[1], settings[3], settings[2]);
+            System.out.println(enigmaMachine.decrypt());
+        }		
     }
 	
     /*
@@ -71,6 +72,9 @@ public class EnigmaMacine
      * Reflector, WheelSetting, Ring Setting, Start Position, Wheel Order,
      * message settings, Message
      */
+    /*
+    * Reflector, rotor Numbers, rotor settings, Decryption message
+    */
 	public static String[] parseDecryption (String decryption)
 	{
         String deliminator = "[,]+";  //deliminator is a comma (for now)
