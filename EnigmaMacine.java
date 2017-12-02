@@ -37,8 +37,8 @@ public class EnigmaMacine
         //encryptions will strictly be a message (no parsing for encryption needed)
         String junk;
             //TODO: put parameters into contructor
-        if (type == 0)
-        {
+        //if (type == 0)
+        //{
             //encryption
 			System.out.println("Which rotors do you want to use? (Input 3 Numbers with no spaces inbetween)");
 			String rotorNum = input.next();
@@ -49,9 +49,9 @@ public class EnigmaMacine
             junk = input.nextLine(); //picks up end line output on last line
             encryption = input.nextLine().toUpperCase();
             //System.out.println(encryption);  //for debugging
-            Machine enigmaMachine = new Machine(reflectorType, rotorNum, encryption);
+            Machine enigmaMachine = new Machine(reflectorType, rotorNum, encryption, typeChar);
             System.out.println(enigmaMachine.encrypt());  //should return encrypted message
-        }
+        //}
 
         /*else
         {
@@ -81,7 +81,4 @@ public class EnigmaMacine
 		return args;
 	}
 	
-	
-	
-
 }

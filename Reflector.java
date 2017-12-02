@@ -38,7 +38,7 @@ public class Reflector
 	//member methods
 	public int changeLetter(int letter) // ASCII A = 65, Z = 90
 	{
-		System.out.println(letter);
+		//System.out.println(letter);
 		int reflectedLetter = ' ';
 		
 		if (letter-65 < 13) //first half of alphabet

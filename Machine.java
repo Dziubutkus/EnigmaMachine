@@ -10,9 +10,9 @@ public class Machine
 	Rotor rotor1;
 	Rotor rotor2;
 	Rotor rotor3;
-	int rotor1Num;
-	int rotor2Num;
-	int rotor3Num;
+	//int rotor1Num;
+	//int rotor2Num;
+	//int rotor3Num;
 	
 	//Constructors (We should have overloaded constructors--I think)
 	//This one will be for encryption
@@ -24,16 +24,28 @@ public class Machine
 		this.codeType = codeType;
 	}
 	//Encryption Constructor
-	public Machine(char reflectorType, String rotorNum, String encryptionMessage)
+	public Machine(char reflectorType, String rotorNum, String encryptionMessage, char typeChar)
 	{
+		// Give random values to rotSetting
+		for (int i=0;i<3;i++)
+		{
+			rotSetting[i]=(int)(Math.random()*26);
+		}
 		reflector = new Reflector(reflectorType);
+		/*
+		 * DB: rotor1Num should be 1, 2, 3 accordingly to identify which rotor is called first, second and third
 		rotor1Num = (int)rotorNum.charAt(0);
 		rotor2Num = (int)rotorNum.charAt(1);
 		rotor3Num = (int)rotorNum.charAt(2);
 		rotor1 = new Rotor(rotSetting[0],rotor1Num);
 		rotor2 = new Rotor(rotSetting[1],rotor2Num);
 		rotor3 = new Rotor(rotSetting[2],rotor3Num);
+		*/
+		rotor1 = new Rotor(rotSetting[0],1);
+		rotor2 = new Rotor(rotSetting[1],2);
+		rotor3 = new Rotor(rotSetting[2],3);
 		message = encryptionMessage;
+		codeType = typeChar;
 	}
 	public Machine()
 	{
@@ -48,27 +60,29 @@ public class Machine
 	
 	public String encrypt()
 	{
-		
-		for (int i=0;i<3;i++)
-		{
-			rotSetting[i]=(int)(Math.random()*26);
-		}
-			
+		System.out.println(codeType + "cdffgfr");
 		int messLength=message.length ( ); //gets length of message
 		int letterNum = -1; //set to -1 for initialization (should be okay??)
 		char letter = ' ';
-		String encryptMess = " ";
+		String encryptMess = "";
 		int charCount=0;
 		
 		//while(charCount<=messLength) //CS:Don't think we need while loop (I think it adds extra character we don't need)
 		//{
+		if(codeType == 'E')
+		{
 			for (int i=0;i<messLength;i++)
 			{
 				letterNum=(int)message.charAt(i);
 				letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
+				//System.out.println(letterNum);
 				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor3);
+				//System.out.println(letterNum);
 				letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2);
-				letterNum=reflector.changeLetter(letterNum);
+				//System.out.println(letterNum);
+				//letterNum=reflector.changeLetter(letterNum);
+				//System.out.println("REFLECTOR");
+				//System.out.println(letterNum);
 				letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2);
 				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor3);
 				letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
@@ -77,6 +91,30 @@ public class Machine
 				System.out.println("letter: "+ letter); //CS: DEBUG
 				encryptMess=encryptMess+letter;
 			}
+		}
+		else if(codeType == 'D')
+		{
+			for (int i=0;i<messLength;i++)
+			{
+				letterNum=(int)message.charAt(i);
+				letterNum=rotor1.changeLetterDecrypt(letterNum,rotor2,rotor3);
+				//System.out.println(letterNum);
+				letterNum=rotor2.changeLetterDecrypt(letterNum,rotor1,rotor3);
+				//System.out.println(letterNum);
+				letterNum=rotor3.changeLetterDecrypt(letterNum,rotor1,rotor2);
+				//System.out.println(letterNum);
+				//letterNum=reflector.changeLetter(letterNum);
+				//System.out.println("REFLECTOR");
+				//System.out.println(letterNum);
+				letterNum=rotor3.changeLetterDecrypt(letterNum,rotor1,rotor2);
+				letterNum=rotor2.changeLetterDecrypt(letterNum,rotor1,rotor3);
+				letterNum=rotor1.changeLetterDecrypt(letterNum,rotor2,rotor3);
+				
+				letter=(char)letterNum;
+				System.out.println("letter: "+ letter); //CS: DEBUG
+				encryptMess=encryptMess+letter;
+			}
+		}
 			//charCount++;  //CS: I think we forgot to increment the charCount
 		//}
 
