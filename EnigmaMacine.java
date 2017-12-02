@@ -42,6 +42,8 @@ public class EnigmaMacine
             //encryption
 			System.out.println("Which rotors do you want to use? (Input 3 Numbers with no spaces inbetween)");
 			String rotorNum = input.next();
+			System.out.println("What rotor settings do you want to use?");
+			String rotorSettings;
 			System.out.println("What reflector do you want to use?");
             char reflectorType = input.next().toUpperCase().charAt(0);
 			System.out.println("What message to you want to encrypt?");
@@ -49,7 +51,7 @@ public class EnigmaMacine
             junk = input.nextLine(); //picks up end line output on last line
             encryption = input.nextLine().toUpperCase();
             //System.out.println(encryption);  //for debugging
-            Machine enigmaMachine = new Machine(reflectorType, rotorNum, encryption, typeChar);
+            Machine enigmaMachine = new Machine(reflectorType, rotorNum, encryption, typeChar, rotorSettings);
             System.out.println(enigmaMachine.encrypt());  //should return encrypted message
         //}
 

@@ -49,6 +49,7 @@ public class Reflector
 		{
 			reflectedLetter = 65 + wheelLettering.charAt(indexLetter(letter-65));
 		}
+		System.out.println("Reflector Letter: " + reflectedLetter);
 		return reflectedLetter;
 	}
 	
