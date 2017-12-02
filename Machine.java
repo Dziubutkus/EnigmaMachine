@@ -65,7 +65,7 @@ public class Machine
 		int letterNum = -1; //set to -1 for initialization (should be okay??)
 		char letter = ' ';
 		String encryptMess = "";
-		int charCount=0;
+		//int charCount=0;
 		
 		//while(charCount<=messLength) //CS:Don't think we need while loop (I think it adds extra character we don't need)
 		//{

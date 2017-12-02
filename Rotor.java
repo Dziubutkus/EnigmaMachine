@@ -35,7 +35,7 @@ public class Rotor {
 		if(letter < 65)
 		{
 			// 
-			letter = 90 - (90 - letter); // If letter > 90, which is not a letter anymore, start from A again
+			letter = 90 - (65 - letter); // If letter > 90, which is not a letter anymore, start from A again
 			System.out.println("Letter if bigger than 90: " + letter);
 		}
 		shift(rotor2, rotor3);
