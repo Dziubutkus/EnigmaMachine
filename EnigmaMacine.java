@@ -11,6 +11,7 @@ public class EnigmaMacine
 		System.out.println ( "Are you encyrpting or decrypting?" );
 		int type = -1;  //whether encypting a message or decrypting a message
         char typeChar;
+        int[] rotorSettings = new int[3];
 		char loopCheck = 'n';
         do
         {
@@ -42,6 +43,12 @@ public class EnigmaMacine
             //encryption
 			System.out.println("Which rotors do you want to use? (Input 3 Numbers with no spaces inbetween)");
 			String rotorNum = input.next();
+			System.out.println("What rotor settings do you want to use?");
+			for(int i = 0; i < 3; i++)
+			{
+				System.out.println("Rotor " + i + " :");
+				rotorSettings[i] = input.nextInt();
+			}
 			System.out.println("What reflector do you want to use?");
             char reflectorType = input.next().toUpperCase().charAt(0);
 			System.out.println("What message to you want to encrypt?");
@@ -49,7 +56,7 @@ public class EnigmaMacine
             junk = input.nextLine(); //picks up end line output on last line
             encryption = input.nextLine().toUpperCase();
             //System.out.println(encryption);  //for debugging
-            Machine enigmaMachine = new Machine(reflectorType, rotorNum, encryption, typeChar);
+            Machine enigmaMachine = new Machine(reflectorType, encryption, typeChar, rotorSettings);
             System.out.println(enigmaMachine.encrypt());  //should return encrypted message
         //}
 

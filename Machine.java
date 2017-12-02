@@ -3,44 +3,39 @@
 public class Machine
 {
 	private int []rotSetting=new int[3]; //rotor settings, start positions
-	private int []rotNum=new int[3]; //rotor numbers 1-5
+	//private int []rotNum=new int[3]; //rotor numbers 1-5
 	private char codeType; //encrypt or decrypt
 	private String message;
+	private String rotorSettings;
 	private Reflector reflector;
+	private char reflectorType;
 	Rotor rotor1;
 	Rotor rotor2;
 	Rotor rotor3;
-	//int rotor1Num;
-	//int rotor2Num;
-	//int rotor3Num;
 	
 	//Constructors (We should have overloaded constructors--I think)
 	//This one will be for encryption
-	public Machine(int[ ] rotSetting, int[ ] rotNum, String message, char codeType)
+	/*
+	public Machine(char reflectorType, String message, char codeType, String rotorSettings)
 	{
-		this.rotSetting = rotSetting;
-		this.rotNum = rotNum;
+		this.reflectorType = reflectorType;
 		this.message = message;
 		this.codeType = codeType;
+		this.rotorSettings = rotorSettings;
 	}
+	*/
 	//Encryption Constructor
-	public Machine(char reflectorType, String rotorNum, String encryptionMessage, char typeChar)
+	public Machine(char reflectorType, String encryptionMessage, char typeChar, int[] rotorSettings)
 	{
 		// Give random values to rotSetting
+		/*
 		for (int i=0;i<3;i++)
 		{
-			rotSetting[i]=(int)(Math.random()*26);
+			rotSetting[i] = (int)rotorSettings.charAt(i);
 		}
-		reflector = new Reflector(reflectorType);
-		/*
-		 * DB: rotor1Num should be 1, 2, 3 accordingly to identify which rotor is called first, second and third
-		rotor1Num = (int)rotorNum.charAt(0);
-		rotor2Num = (int)rotorNum.charAt(1);
-		rotor3Num = (int)rotorNum.charAt(2);
-		rotor1 = new Rotor(rotSetting[0],rotor1Num);
-		rotor2 = new Rotor(rotSetting[1],rotor2Num);
-		rotor3 = new Rotor(rotSetting[2],rotor3Num);
 		*/
+		rotSetting = rotorSettings;
+		reflector = new Reflector(reflectorType);
 		rotor1 = new Rotor(rotSetting[0],1);
 		rotor2 = new Rotor(rotSetting[1],2);
 		rotor3 = new Rotor(rotSetting[2],3);
@@ -52,7 +47,6 @@ public class Machine
 		for(int i =0; i<3;i++)
 		{
 			this.rotSetting[i]=-1;
-			this.rotNum[i]=-1;
 		}
 		this.message= "nothing";
 		this.codeType='?';
@@ -74,18 +68,18 @@ public class Machine
 			for (int i=0;i<messLength;i++)
 			{
 				letterNum=(int)message.charAt(i);
-				letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
+				letterNum=rotor1.changeLetter(letterNum,rotor1,rotor2,rotor3);
 				//System.out.println(letterNum);
-				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor3);
+				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor2, rotor3);
 				//System.out.println(letterNum);
-				letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2);
+				letterNum=rotor3.changeLetter(letterNum,rotor1, rotor2, rotor3);
 				//System.out.println(letterNum);
 				//letterNum=reflector.changeLetter(letterNum);
 				//System.out.println("REFLECTOR");
 				//System.out.println(letterNum);
-				letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2);
-				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor3);
-				letterNum=rotor1.changeLetter(letterNum,rotor2,rotor3);
+				letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2,rotor3);
+				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor2,rotor3);
+				letterNum=rotor1.changeLetter(letterNum,rotor1,rotor2,rotor3);
 				
 				letter=(char)letterNum;
 				System.out.println("letter: "+ letter); //CS: DEBUG
@@ -97,19 +91,16 @@ public class Machine
 			for (int i=0;i<messLength;i++)
 			{
 				letterNum=(int)message.charAt(i);
-				letterNum=rotor1.changeLetterDecrypt(letterNum,rotor2,rotor3);
+				letterNum=rotor1.changeLetterDecrypt(letterNum,rotor1,rotor2,rotor3);
 				//System.out.println(letterNum);
-				letterNum=rotor2.changeLetterDecrypt(letterNum,rotor1,rotor3);
-				//System.out.println(letterNum);
-				letterNum=rotor3.changeLetterDecrypt(letterNum,rotor1,rotor2);
-				//System.out.println(letterNum);
+				letterNum=rotor2.changeLetterDecrypt(letterNum,rotor1,rotor2,rotor3);				//System.out.println(letterNum);
+				letterNum=rotor3.changeLetterDecrypt(letterNum,rotor1,rotor2,rotor3);				//System.out.println(letterNum);
 				//letterNum=reflector.changeLetter(letterNum);
 				//System.out.println("REFLECTOR");
 				//System.out.println(letterNum);
-				letterNum=rotor3.changeLetterDecrypt(letterNum,rotor1,rotor2);
-				letterNum=rotor2.changeLetterDecrypt(letterNum,rotor1,rotor3);
-				letterNum=rotor1.changeLetterDecrypt(letterNum,rotor2,rotor3);
-				
+				letterNum=rotor3.changeLetterDecrypt(letterNum,rotor1,rotor2,rotor3);				
+				letterNum=rotor2.changeLetterDecrypt(letterNum,rotor1,rotor2,rotor3);				
+				letterNum=rotor1.changeLetterDecrypt(letterNum,rotor1,rotor2,rotor3);
 				letter=(char)letterNum;
 				System.out.println("letter: "+ letter); //CS: DEBUG
 				encryptMess=encryptMess+letter;
@@ -119,12 +110,12 @@ public class Machine
 		//}
 
 		//It think this is basically formatting for output.
-		String rotorNumbers = null; //rotor number settings
+		//String rotorNumbers = null; //rotor number settings
 		String rotorSettings = null; //rotor starting settings
 		for (int r=0;r<3;r++)
 		{
-			char number=(char)rotNum[r];
-			rotorNumbers+=number;
+			//char number=(char)rotNum[r];
+			//rotorNumbers+=number;
 			char setting=(char)rotSetting[r];
 			rotorSettings+=setting;
 		}

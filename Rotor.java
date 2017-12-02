@@ -13,7 +13,7 @@ public class Rotor {
 		this.rotorNumber = 0;
 	}
 	
-	public int changeLetter(int letter, Rotor rotor2, Rotor rotor3) // ASCII A = 65, Z = 90
+	public int changeLetter(int letter, Rotor rotor1, Rotor rotor2, Rotor rotor3) // ASCII A = 65, Z = 90
 	{
 		System.out.println("Rotor setting: " + rotorSettings);
 		letter = letter + rotorSettings;
@@ -23,11 +23,11 @@ public class Rotor {
 			letter = 65 + (letter - 90); // If letter > 90, which is not a letter anymore, start from A again
 			System.out.println("Letter if bigger than 90: " + letter);
 		}
-		shift(rotor2, rotor3);
+		shift(rotor1, rotor2, rotor3);
 		System.out.println();
 		return letter;
 	}
-	public int changeLetterDecrypt(int letter, Rotor rotor2, Rotor rotor3) // ASCII A = 65, Z = 90
+	public int changeLetterDecrypt(int letter, Rotor rotor1, Rotor rotor2, Rotor rotor3) // ASCII A = 65, Z = 90
 	{
 		System.out.println("Rotor setting: " + rotorSettings);
 		letter = letter - rotorSettings;
@@ -38,28 +38,26 @@ public class Rotor {
 			letter = 90 - (65 - letter); // If letter > 90, which is not a letter anymore, start from A again
 			System.out.println("Letter if bigger than 90: " + letter);
 		}
-		shift(rotor2, rotor3);
+		shift(rotor1,rotor2, rotor3);
 		System.out.println();
 		return letter;
 	}
 	
-	public void shift (Rotor rotor2, Rotor rotor3)
+	public void shift (Rotor rotor1, Rotor rotor2, Rotor rotor3)
 	{
 		System.out.println("Rotor Number: " + rotorNumber);
-		if(rotorNumber == 1)
+
+		rotor1.setSettings(rotor1.getSettings() + 1);
+		if (rotor1.getSettings() > 26)
 		{
-			rotorSettings++;
-			if (rotorSettings > 26)
+			rotor2.setSettings(rotor2.getSettings()+1);
+			rotor1.setSettings(1);
+			System.out.println("ROTOR SETTINGS CHANGED: " + rotor1.getSettings());
+			if (rotor2.getSettings() > 26 )
 			{
-				rotor2.setSettings(rotor2.getSettings()+1);
-				rotorSettings = 1;
-				System.out.println("ROTOR SETTINGS CHANGED: " + rotorSettings);
-				if (rotor2.getSettings() > 26 )
-				{
-					rotor2.setSettings(1);
-					rotor3.setSettings(rotor3.getSettings()+1);
-				}
-			}	
+				rotor2.setSettings(1);
+				rotor3.setSettings(rotor3.getSettings()+1);
+			}
 		}	
 	}
 	

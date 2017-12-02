@@ -47,8 +47,9 @@ public class Reflector
 		}
 		else if (letter-65 >= 13) //second half of alphabet
 		{
-			reflectedLetter = 65 + wheelLettering.charAt(indexLetter(letter-65));
+			reflectedLetter = wheelLettering.charAt(indexLetter(letter-65));
 		}
+		System.out.println("Reflector Letter: " + reflectedLetter);
 		return reflectedLetter;
 	}
 	
