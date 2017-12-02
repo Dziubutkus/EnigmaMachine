@@ -36,6 +36,12 @@ public class Reflector
 	}
 	
 	//member methods
+	/*
+	 * changeLetter
+	 * @params		:
+	 * @return		:
+	 * Description	: 
+	 */
 	public int changeLetter(int letter) // ASCII A = 65, Z = 90
 	{
 		//System.out.println(letter);

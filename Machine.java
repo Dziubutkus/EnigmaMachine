@@ -74,8 +74,8 @@ public class Machine
 				//System.out.println(letterNum);
 				letterNum=rotor3.changeLetter(letterNum,rotor1, rotor2, rotor3);
 				//System.out.println(letterNum);
-				//letterNum=reflector.changeLetter(letterNum);
-				//System.out.println("REFLECTOR");
+				letterNum=reflector.changeLetter(letterNum);
+				System.out.println("REFLECTOR");
 				//System.out.println(letterNum);
 				letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2,rotor3);
 				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor2,rotor3);
@@ -95,8 +95,8 @@ public class Machine
 				//System.out.println(letterNum);
 				letterNum=rotor2.changeLetterDecrypt(letterNum,rotor1,rotor2,rotor3);				//System.out.println(letterNum);
 				letterNum=rotor3.changeLetterDecrypt(letterNum,rotor1,rotor2,rotor3);				//System.out.println(letterNum);
-				//letterNum=reflector.changeLetter(letterNum);
-				//System.out.println("REFLECTOR");
+				letterNum=reflector.changeLetter(letterNum);
+				System.out.println("REFLECTOR");
 				//System.out.println(letterNum);
 				letterNum=rotor3.changeLetterDecrypt(letterNum,rotor1,rotor2,rotor3);				
 				letterNum=rotor2.changeLetterDecrypt(letterNum,rotor1,rotor2,rotor3);				
