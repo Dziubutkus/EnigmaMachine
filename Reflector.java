@@ -10,6 +10,7 @@ public class Reflector
 	//member variables
 	private char type;  //Will be either B or C
 	private String wheelLettering;
+	private String letters;
 		//we will have two reflector types (B and C) they will be hard coded in
 		//M3B:
 				//ABCDEFGHIJKLM
@@ -21,6 +22,7 @@ public class Reflector
 	//We will have two different reflectors to choose from (B or C)
 	Reflector(char type)
 	{
+		letters = "ABCDEFGHIJKLM";
 		if (type == 'B')
 		{
 			wheelLettering = "YRUQSPXNOZWVT";
@@ -35,6 +37,7 @@ public class Reflector
 		}
 	}
 	
+	
 	//member methods
 	/*
 	 * changeLetter
@@ -42,6 +45,23 @@ public class Reflector
 	 * @return		:
 	 * Description	: 
 	 */
+	public int changeLetter(int letter)
+	{
+		int reflectedLetter = ' ';
+		int newLetter;
+		newLetter = letter - 65;
+		if(newLetter < 13)
+		{
+			reflectedLetter = wheelLettering.charAt(newLetter);
+		}
+		else if(newLetter >= 13)
+		{
+			int findLetter = wheelLettering.indexOf((char)letter);
+			reflectedLetter = letters.charAt(findLetter);
+		}
+		return reflectedLetter;
+	}
+	/*
 	public int changeLetter(int letter) // ASCII A = 65, Z = 90
 	{
 		//System.out.println(letter);
@@ -76,6 +96,7 @@ public class Reflector
 		}
 		return index;
 	}
+	*/
 	
 	//getters and setters
 	

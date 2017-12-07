@@ -38,7 +38,7 @@ public class Rotor {
 			letter = 90 - (65 - letter); // If letter > 90, which is not a letter anymore, start from A again
 			System.out.println("Letter if bigger than 90: " + letter);
 		}
-		shift(rotor1,rotor2, rotor3);
+		shiftDecrypt(rotor1,rotor2, rotor3);
 		System.out.println();
 		return letter;
 	}
@@ -60,7 +60,23 @@ public class Rotor {
 			}
 		}	
 	}
-	
+	public void shiftDecrypt (Rotor rotor1, Rotor rotor2, Rotor rotor3)
+	{
+		System.out.println("Rotor Number: " + rotorNumber);
+
+		rotor1.setSettings(rotor1.getSettings() - 1);
+		if (rotor1.getSettings() < 1)
+		{
+			rotor2.setSettings(rotor2.getSettings()-1);
+			rotor1.setSettings(26);
+			System.out.println("ROTOR SETTINGS CHANGED: " + rotor1.getSettings());
+			if (rotor2.getSettings() < 1 )
+			{
+				rotor2.setSettings(26);
+				rotor3.setSettings(rotor3.getSettings()-1);
+			}
+		}	
+	}
 	// Getters and Setters
 	public Rotor(int rotorSettings, int rotorNumber) {
 		super();

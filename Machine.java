@@ -36,9 +36,9 @@ public class Machine
 		*/
 		rotSetting = rotorSettings;
 		reflector = new Reflector(reflectorType);
-		rotor1 = new Rotor(rotSetting[0],1);
-		rotor2 = new Rotor(rotSetting[1],2);
-		rotor3 = new Rotor(rotSetting[2],3);
+		rotor1 = new Rotor(rotSetting[0], 1);
+		rotor2 = new Rotor(rotSetting[1], 2);
+		rotor3 = new Rotor(rotSetting[2], 3);
 		message = encryptionMessage;
 		codeType = typeChar;
 	}
@@ -54,15 +54,11 @@ public class Machine
 	
 	public String encrypt()
 	{
-		System.out.println(codeType + "cdffgfr");
 		int messLength=message.length ( ); //gets length of message
 		int letterNum = -1; //set to -1 for initialization (should be okay??)
 		char letter = ' ';
 		String encryptMess = "";
-		//int charCount=0;
-		
-		//while(charCount<=messLength) //CS:Don't think we need while loop (I think it adds extra character we don't need)
-		//{
+
 		if(codeType == 'E')
 		{
 			for (int i=0;i<messLength;i++)
@@ -75,7 +71,7 @@ public class Machine
 				letterNum=rotor3.changeLetter(letterNum,rotor1, rotor2, rotor3);
 				//System.out.println(letterNum);
 				letterNum=reflector.changeLetter(letterNum);
-				System.out.println("REFLECTOR");
+				//System.out.println("REFLECTOR");
 				//System.out.println(letterNum);
 				letterNum=rotor3.changeLetter(letterNum,rotor1,rotor2,rotor3);
 				letterNum=rotor2.changeLetter(letterNum,rotor1,rotor2,rotor3);
@@ -92,12 +88,9 @@ public class Machine
 			{
 				letterNum=(int)message.charAt(i);
 				letterNum=rotor1.changeLetterDecrypt(letterNum,rotor1,rotor2,rotor3);
-				//System.out.println(letterNum);
 				letterNum=rotor2.changeLetterDecrypt(letterNum,rotor1,rotor2,rotor3);				//System.out.println(letterNum);
 				letterNum=rotor3.changeLetterDecrypt(letterNum,rotor1,rotor2,rotor3);				//System.out.println(letterNum);
 				letterNum=reflector.changeLetter(letterNum);
-				System.out.println("REFLECTOR");
-				//System.out.println(letterNum);
 				letterNum=rotor3.changeLetterDecrypt(letterNum,rotor1,rotor2,rotor3);				
 				letterNum=rotor2.changeLetterDecrypt(letterNum,rotor1,rotor2,rotor3);				
 				letterNum=rotor1.changeLetterDecrypt(letterNum,rotor1,rotor2,rotor3);
